@@ -1,15 +1,18 @@
 import pygame
 from constants import *
+from player import Player
 
 def main():
     # initialize game window
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.Surface.fill(screen, (0,0,0))
 
     # create game time
     timer = pygame.time.Clock()
     dt = 0
+
+    # create player object
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     # start of game loop
     while True:
@@ -20,6 +23,13 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+        
+        # blank out screen
+        pygame.Surface.fill(screen, (0,0,0))
+
+        # update then draw player
+        player.update(dt)
+        player.draw(screen)
         
         # redraw screen
         pygame.display.flip()
